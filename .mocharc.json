@@ -1,0 +1,14 @@
+{
+    "extension": ["ts"],
+    "spec": "test/**/*.test.ts",
+    "require": "ts-node/register",
+    "reporter": "mochawesome",
+    "reporterOptions": {
+        "reportDir": "D:/szubair/Projects/Automation/MOCHA_REST/MOCHA_REST_API_TESTING/custom-reports",  // Directory to store the reports
+        "reportFilename": "test-report",         // Report filename (you can change it if needed)
+        "quiet": false,                      // Suppress console output
+        "overwrite": true,                  // Overwrite existing reports
+        "html": true,                       // Generate an HTML report
+        "json": true                        // Generate a JSON report,
+    }
+  }
