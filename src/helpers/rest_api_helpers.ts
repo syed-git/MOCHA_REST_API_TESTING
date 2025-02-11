@@ -21,7 +21,7 @@ export const getApi = async (_this: Mocha.Context, application: string | number,
     // Parse the response as JSON and return it
     const data = await response.json();
     const responseTime: number = endTime.diff(startTime, 'milliseconds');
-    apiReport(_this, startTime, responseTime, endpoint, data);
+    apiReport(_this, startTime, responseTime, '', endpoint, data);
     return data; // Return the fetched data for use in other functions or tests
 
   } catch (error) {
@@ -32,12 +32,57 @@ export const getApi = async (_this: Mocha.Context, application: string | number,
   
 }
 
-export const apiReport = async (_this: Mocha.Context, startTime: Moment, responseTime: number, endpoint: string, response: JSON) => {
+export const postApi = async (_this: Mocha.Context, application: string, uri: any, environment: string = 'sit1', request : any) => {
+    
+  const env1: string = environment;
+  const endpoint: string = `${env[env1][application].baseUri}/${uri}`;
+  let headers: any;
+  let requestBody: any;
+
+  if (request !== undefined) {
+    if (request.headers !== undefined) {
+      headers = request.headers;
+    } else {
+      headers = {
+        'content-type': 'application/json'
+      }
+    }
+    if (request.body !== undefined) {
+      requestBody = request.body; 
+    }
+
+  }
+
+  const startTime: Moment = moment();
+
+  const response = await fetch(endpoint, {
+    method: 'POST',                    // Specify the HTTP method
+    headers: headers,
+    body: JSON.stringify(requestBody)          // Convert the data object to a JSON string
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+
+  const endTime: Moment = moment();
+    
+  const responseTime: number = endTime.diff(startTime, 'milliseconds');
+    
+  // Parse the JSON response
+  const responseBody = await response.json();
+  apiReport(_this, startTime, responseTime, endpoint, request, responseBody);
+  return responseBody;
+}
+
+
+export const apiReport = async (_this: Mocha.Context, startTime: Moment, responseTime: number, endpoint: string, request: any, response: JSON) => {
   
   addContext(_this, {
     title: `${startTime.format('YYYY-MM-DD HH:mm:ss.SSS')}  ==>>  Endpoint: ${endpoint}`,
-    value: `${JSON.stringify(response, null, 2)} \n\n` +
-           `Response Time: ${responseTime} milliseconds\n\n` +
-           `\x1b[1mThis is bold text\x1b[0m`
+    value: `Headers: ${JSON.stringify(request.headers, null, 2)}\n\n` +
+           `Request body: ${JSON.stringify(request.body, null, 2)}\n\n` +
+           `Response: ${JSON.stringify(response, null, 2)} \n\n` +
+           `Response Time: ${responseTime} milliseconds`
   });
 }
