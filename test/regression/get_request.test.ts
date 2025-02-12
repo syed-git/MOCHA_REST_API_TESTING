@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import { getApi, postApi } from '../src/helpers/rest_api_helpers';
+import { getApi, postApi } from '../../src/helpers/rest_api_helpers';
 import { step } from 'mocha-steps';
-import { tableReport } from '../src/helpers/common_helper';
+import { tableReport } from '../../src/helpers/common_helper';
 
-describe('GET AOI REQUEST', async function () {
+describe('GET API REQUEST', async function () {
   
   step('Get the list of all the users', async function () {
     
@@ -50,29 +50,10 @@ describe('GET AOI REQUEST', async function () {
     
   });
 
-  step('Get a single user details', async function () {
+  step('Single user not found', async function () {
     
-    const reqBody: any = {
-      body: {
-        'name': 'syed', 
-        'job': 'lead'
-      }
-    };
+    const response = await getApi(this, 'regres', 'users/23', 'sit1');
 
-    const response = await postApi(this, 'regres', 'users', 'sit1', reqBody);
-
-    // Define the 2D array
-    const data: any[][] = [];
-    data.push(['Parameters', 'Actual', 'Expected']);
-    data.push([`name`, response.name, 'syed']);
-    data.push([`job`, response.job, 'lead'])
-    
-    // print the values to report
-    await tableReport(this, `POST API Comparison`, data);
-
-    expect(response, `error`).not.to.undefined;
-    expect(response.name).to.be.equal('syed');
-    expect(response.job).to.be.equal('lead');
-    
+    expect(response.status, `error`).to.be.equal(404);
   });
 });

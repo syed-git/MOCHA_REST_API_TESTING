@@ -17,17 +17,19 @@ export const getApi = async (_this: Mocha.Context, application: string | number,
 
     // call the GET API
     const response = await fetch(endpoint);
-    
+    const endTime: Moment = moment();
+    const responseTime: number = endTime.diff(startTime, 'milliseconds');
+
     // Check if the request was successful
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      apiReport(_this, startTime, responseTime, endpoint, '', await response.json());
+      return response;
     }
-    const endTime: Moment = moment();
-    
+
     // Parse the response as JSON and return it
     const data = await response.json();
-    const responseTime: number = endTime.diff(startTime, 'milliseconds');
-    apiReport(_this, startTime, responseTime, '', endpoint, data);
+    
+    apiReport(_this, startTime, responseTime, endpoint, '', data);
     return data; // Return the fetched data for use in other functions or tests
 
   } catch (error) {
