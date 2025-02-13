@@ -11,7 +11,7 @@ on:
 
 # Define the job
 jobs:
-  test:
+  build_tests:
     name: Build
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
 
@@ -34,7 +34,7 @@ jobs:
       - name: Run build tests
         run: npx mocha --grep '@build'
 
-  test:
+  smoke_tests:
     name: Smoke Tests
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
 
@@ -57,7 +57,7 @@ jobs:
       - name: Run build tests
         run: npx mocha --grep '@smoke'
 
-  test:
+  regression_tests:
     name: Regression Tests
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
 
