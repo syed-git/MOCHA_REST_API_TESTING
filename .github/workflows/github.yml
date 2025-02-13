@@ -37,6 +37,7 @@ jobs:
   smoke_tests:
     name: Smoke Tests
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    needs: build_tests
 
     steps:
       # Step 1: Check out the repository
@@ -60,6 +61,7 @@ jobs:
   regression_tests:
     name: Regression Tests
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    needs: smoke_tests
 
     steps:
       # Step 1: Check out the repository
