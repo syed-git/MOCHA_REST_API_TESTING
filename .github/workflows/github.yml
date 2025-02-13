@@ -12,7 +12,7 @@ on:
 # Define the job
 jobs:
   test:
-    name: Run Tests
+    name: Build
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
 
     steps:
@@ -31,5 +31,49 @@ jobs:
         run: npm install
 
       # Step 4: Run tests
-      - name: Run tests
-        run: npm test
+      - name: Run build tests
+        run: npx mocha --grep '@build'
+
+  name: Smoke tests
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22 # Specify the Node.js version
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run tests
+      - name: Run smoke tests
+        run: npx mocha --grep '@smoke'
+
+  name: Regression tests
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22 # Specify the Node.js version
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run tests
+      - name: Run regression tests
+        run: npx mocha --grep '@regression'

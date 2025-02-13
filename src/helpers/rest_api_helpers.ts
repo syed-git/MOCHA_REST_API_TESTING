@@ -100,6 +100,65 @@ export const postApi = async (_this: Mocha.Context, application: string, uri: an
   return responseBody;
 }
 
+/*
+postApi: this function is designed to post a rest API request and get the response using POST method
+@param: _this: Mocha reporting context
+@param: application: the framework designed to support multiple application, provide the application name to get the environment details
+@param: uri: provide the uri, this will be concated with baseUri
+@param: environment: environment to run the script
+@param: request: provide the request body including headers if needed
+        example request = {
+          headers: {
+            'content-type': 'application/json
+          },
+          body: {
+            'name': 'test'
+          }
+        }
+*/
+export const putApi = async (_this: Mocha.Context, application: string, uri: any, environment: string = 'sit1', request : any) => {
+    
+  const env1: string = environment;
+  const endpoint: string = `${env[env1][application].baseUri}/${uri}`;
+  let headers: any;
+  let requestBody: any;
+
+  if (request !== undefined) {
+    if (request.headers !== undefined) {
+      headers = request.headers;
+    } else {
+      headers = {
+        'content-type': 'application/json'
+      }
+    }
+    if (request.body !== undefined) {
+      requestBody = request.body; 
+    }
+
+  }
+
+  const startTime: Moment = moment();
+
+  const response = await fetch(endpoint, {
+    method: 'PUT',                    // Specify the HTTP method
+    headers: headers,
+    body: JSON.stringify(requestBody)          // Convert the data object to a JSON string
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+
+  const endTime: Moment = moment();
+    
+  const responseTime: number = endTime.diff(startTime, 'milliseconds');
+    
+  // Parse the JSON response
+  const responseBody = await response.json();
+  apiReport(_this, startTime, responseTime, endpoint, request, responseBody);
+  return responseBody;
+}
+
 
 /*
 apiReport: this function is designed to report all the necessary details

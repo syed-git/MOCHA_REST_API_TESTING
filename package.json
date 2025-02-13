@@ -4,7 +4,10 @@
   "description": "This repository is designed for rest api automation testing",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "npx mocha",
+    "test-regression": "npx mocha --grep '@regression'",
+    "test-smoke": "npx mocha --grep '@smoke'",
+    "test-build": "npx mocha --grep '@build'"
   },
   "repository": {
     "type": "git",
@@ -25,6 +28,7 @@
     "chai": "^5.1.2",
     "mocha": "^11.1.0",
     "mocha-steps": "^1.3.0",
+    "mocha-tags": "^1.0.1",
     "mochawesome": "^7.1.3",
     "mochawesome-report-generator": "^6.2.0",
     "ts-node": "^10.9.2",
@@ -33,6 +37,7 @@
   "dependencies": {
     "chalk": "^5.4.1",
     "cli-table": "^0.3.11",
-    "moment": "^2.30.1"
+    "moment": "^2.30.1",
+    "moment-timezone": "^0.5.47"
   }
 }
