@@ -33,11 +33,6 @@ jobs:
       # Step 4: Run tests
       - name: Run build tests
         run: npx mocha --grep '@build'
-        if: ${{ !cancelled() }}
-        with:
-        name: build-tests
-        path: test-report/
-        retention-days: 30
 
   smoke_tests:
     name: Smoke Tests
@@ -62,11 +57,6 @@ jobs:
       # Step 4: Run tests
       - name: Run build tests
         run: npx mocha --grep '@smoke'
-        if: ${{ !cancelled() }}
-        with:
-        name: smoke-tests
-        path: test-report/
-        retention-days: 30
 
   regression_tests:
     name: Regression Tests
@@ -91,8 +81,3 @@ jobs:
       # Step 4: Run tests
       - name: Run regression tests
         run: npx mocha --grep '@regression'
-        if: ${{ !cancelled() }}
-        with:
-        name: regression-tests
-        path: test-report/
-        retention-days: 30
