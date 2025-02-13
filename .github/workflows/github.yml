@@ -34,7 +34,8 @@ jobs:
       - name: Run build tests
         run: npx mocha --grep '@build'
 
-  name: Smoke tests
+  test:
+    name: Smoke Tests
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
 
     steps:
@@ -53,10 +54,11 @@ jobs:
         run: npm install
 
       # Step 4: Run tests
-      - name: Run smoke tests
+      - name: Run build tests
         run: npx mocha --grep '@smoke'
 
-  name: Regression tests
+  test:
+    name: Regression Tests
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
 
     steps:
