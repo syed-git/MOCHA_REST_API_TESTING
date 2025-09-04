@@ -8,24 +8,21 @@ describe('Build tests', async function () {
   
   step('Validate GET request working fine @build', async function () {
     
-    const response = await getApi(this, 'regres', 'users?page=2', 'sit1');
-
-    // Define the 2D array
-    const data: any[][] = [];
-    data.push(['Parameter', 'Actual', 'Expected']);
-    data.push([`page`, response.page, 2]);
-    data.push([`per_page`, response.per_page, 6])
-    data.push([`total_pages`, response.total_pages, 2])
-    data.push([`total`, response.total, 12])
-
-    // print the values to report
-    await tableReport(this, `GET API Comparison`, data);
+    const response: any = await getApi(this, 'regres', 'objects', 'sit1');
 
     expect(response, `error`).not.to.undefined;
-    expect(response.page).to.be.equal(2);
-    expect(response.per_page).to.be.equal(6);
-    expect(response.total_pages).to.be.equal(2);
-    expect(response.total).to.be.equal(12);
+    expect(response.length).to.be.equal(13);
+    
+    // validate the name and data for id=8
+    const filteredResponse = response.filter((ele: any) => {
+      return ele.id === "8"
+    });
+
+    expect(filteredResponse, `error`).not.to.undefined;
+    expect(filteredResponse.length).to.be.equal(1);
+    expect(filteredResponse[0].name).to.be.equal(`Apple Watch Series 8`);
+    expect(filteredResponse[0].data['Strap Colour']).to.be.equal(`Elderberry`);
+    expect(filteredResponse[0].data['Case Size']).to.be.equal(`41mm`);
     
   });
 
@@ -33,53 +30,43 @@ describe('Build tests', async function () {
     
     const reqBody: any = {
         body: {
-          'name': 'syed', 
-          'job': 'lead'
+          name: "Apple MacBook Pro 16",
+          data: {
+              year: 2019,
+              price: 1849.99,
+              "CPU model": "Intel Core i9",
+              "Hard disk size": "1 TB"
+          }
         }
       };
   
-      const response = await postApi(this, 'regres', 'users', 'sit1', reqBody);
-  
-      // Define the 2D array
-      const data: any[][] = [];
-      data.push(['Parameters', 'Actual', 'Expected']);
-      data.push([`name`, response.name, 'syed']);
-      data.push([`job`, response.job, 'lead'])
-      
-      // print the values to report
-      await tableReport(this, `POST API Comparison`, data);
-  
+      const response = await postApi(this, 'regres', 'objects', 'sit1', reqBody);
+      console.log(response)
       expect(response, `error`).not.to.undefined;
-      expect(response.name).to.be.equal('syed');
-      expect(response.job).to.be.equal('lead');
-    
+      expect(response.id).not.to.undefined;
+      expect(response.name).to.be.equal('Apple MacBook Pro 16');
+      expect(response.data['Hard disk size']).to.be.equal('1 TB');
   });
 
   step('Validate PUT request working fine @build', async function () {
     
     const reqBody: any = {
       body: {
-        'name': 'morpheus', 
-        'job': 'zion resident'
+        name: "Apple MacBook Pro 16",
+        data: {
+            "year": 2019,
+            "price": 2049.99,
+            "CPU model": "Intel Core i9",
+            "Hard disk size": "1 TB",
+            "color": "silver"
+        }
       }
     };
 
-    const response = await putApi(this, 'regres', 'users/2', 'sit1', reqBody);
-
-    // Define the 2D array
-    const data: any[][] = [];
-    data.push(['Parameters', 'Actual', 'Expected']);
-    data.push([`name`, response.name, 'morpheus']);
-    data.push([`job`, response.job, 'zion resident']);
-    data.push([`updatedAt`, response.updatedAt, `${moment.tz("Asia/Kolkata").format('YYYY-MM-DD')}`]);
-    
-    // print the values to report
-    await tableReport(this, `POST API Comparison`, data);
+    const response = await putApi(this, 'regres', 'objects/7', 'sit1', reqBody);
 
     expect(response, `error`).not.to.undefined;
-    expect(response.name).to.be.equal('morpheus');
-    expect(response.job).to.be.equal('zion resident');
-    expect(response.updatedAt).to.include(`${moment.tz("Asia/Kolkata").format('YYYY-MM-DD')}`);
-    
+    expect(response.name).to.be.equal('Apple MacBook Pro 16');
+    expect(response.data['CPU model']).to.be.equal('Intel Core i9');    
   });
 });
