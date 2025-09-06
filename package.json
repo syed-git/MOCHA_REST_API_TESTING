@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This repository is designed for rest api automation testing",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "test": "npx mocha",
     "test-regression": "npx mocha --grep '@regression'",
