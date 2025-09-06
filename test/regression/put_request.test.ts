@@ -6,17 +6,24 @@ import moment from 'moment-timezone';
 
 describe('PUT API CALL', async function () {
 
-  step('Update a user @demo', async function () {
+  step('Update a user @putRequests', async function () {
     
     const reqBody: any = {
       body: {
-        'name': 'morpheus', 
-        'job': 'zion resident'
+        "name": "Apple MacBook Pro 16",
+        "data": {
+            "year": 2019,
+            "price": 2049.99,
+            "CPU model": "Intel Core i9",
+            "Hard disk size": "1 TB",
+            "color": "silver"
+        }
       }
     };
 
-    const response = await putApi(this, 'regres', 'users/2', 'sit1', reqBody);
+    const response = await putApi(this, 'regres', 'objects/7', 'sit1', reqBody);
 
+    console.log(response)
     // Define the 2D array
     const data: any[][] = [];
     data.push(['Parameters', 'Actual', 'Expected']);

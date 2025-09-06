@@ -48,25 +48,25 @@ describe('Build tests', async function () {
       expect(response.data['Hard disk size']).to.be.equal('1 TB');
   });
 
-  step('Validate PUT request working fine @build', async function () {
+  // step('Validate PUT request working fine @putRequest', async function () {
     
-    const reqBody: any = {
-      body: {
-        name: "Apple MacBook Pro 16",
-        data: {
-            "year": 2019,
-            "price": 2049.99,
-            "CPU model": "Intel Core i9",
-            "Hard disk size": "1 TB",
-            "color": "silver"
-        }
-      }
-    };
+  //   const reqBody: any = {
+  //     body: {
+  //       name: "Apple MacBook Pro 16",
+  //       data: {
+  //           "year": 2019,
+  //           "price": 2049.99,
+  //           "CPU model": "Intel Core i9",
+  //           "Hard disk size": "1 TB",
+  //           "color": "silver"
+  //       }
+  //     }
+  //   };
 
-    const response = await putApi(this, 'regres', 'objects/7', 'sit1', reqBody);
+  //   const response = await putApi(this, 'regres', 'objects/7', 'sit1', reqBody);
 
-    expect(response, `error`).not.to.undefined;
-    expect(response.name).to.be.equal('Apple MacBook Pro 16');
-    expect(response.data['CPU model']).to.be.equal('Intel Core i9');    
-  });
+  //   expect(response, `error`).not.to.undefined;
+  //   expect(response.name).to.be.equal('Apple MacBook Pro 16');
+  //   expect(response.data['CPU model']).to.be.equal('Intel Core i9');    
+  // });
 });

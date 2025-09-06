@@ -5,29 +5,25 @@ import { tableReport } from '../../src/helpers/common_helper';
 
 describe('POST API CALL', async function () {
 
-  step('Create a user using POST request', async function () {
+  step('Adding a user @postRequests', async function () {
     
     const reqBody: any = {
-      body: {
-        'name': 'syed', 
-        'job': 'lead'
-      }
-    };
-
-    const response = await postApi(this, 'regres', 'users', 'sit1', reqBody);
-
-    // Define the 2D array
-    const data: any[][] = [];
-    data.push(['Parameters', 'Actual', 'Expected']);
-    data.push([`name`, response.name, 'syed']);
-    data.push([`job`, response.job, 'lead'])
-    
-    // print the values to report
-    await tableReport(this, `POST API Comparison`, data);
-
-    expect(response, `error`).not.to.undefined;
-    expect(response.name).to.be.equal('syed');
-    expect(response.job).to.be.equal('lead');
-    
+        body: {
+          name: "Apple MacBook Pro 16",
+          data: {
+              year: 2019,
+              price: 1849.99,
+              "CPU model": "Intel Core i9",
+              "Hard disk size": "1 TB"
+          }
+        }
+      };
+  
+      const response = await postApi(this, 'regres', 'objects', 'sit1', reqBody);
+      console.log(response)
+      expect(response, `error`).not.to.undefined;
+      expect(response.id).not.to.undefined;
+      expect(response.name).to.be.equal('Apple MacBook Pro 16');
+      expect(response.data['Hard disk size']).to.be.equal('1 TB');
   });
 });

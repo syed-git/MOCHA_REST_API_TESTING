@@ -58,8 +58,8 @@ jobs:
       - name: Run build tests
         run: npx mocha --grep '@smoke'
 
-  regression_tests:
-    name: Regression Tests
+  getRequests:
+    name: GET Requests
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
     needs: smoke_tests
 
@@ -79,5 +79,29 @@ jobs:
         run: npm install
 
       # Step 4: Run tests
-      - name: Run regression tests
-        run: npx mocha --grep '@regression'
+      - name: Run GET Request tests
+        run: npx mocha --grep '@getRequests'
+
+  postRequests:
+    name: POST Requests
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    needs: getRequests
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22 # Specify the Node.js version
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run tests
+      - name: Run POST Request tests
+        run: npx mocha --grep '@postRequests'
