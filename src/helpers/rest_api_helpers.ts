@@ -1,4 +1,4 @@
-import { env } from '../../environments/environment';
+import { env } from '../environments/environment';
 import addContext from 'mochawesome/addContext';
 import moment, { Moment } from 'moment';
 

@@ -1,8 +1,7 @@
 import { expect } from 'chai';
 import { getApi, postApi, putApi } from '../../src/helpers/rest_api_helpers';
 import { step } from 'mocha-steps';
-import { tableReport } from '../../src/helpers/common_helper';
-import moment from 'moment-timezone';
+
 
 describe('Build tests', async function () {
   

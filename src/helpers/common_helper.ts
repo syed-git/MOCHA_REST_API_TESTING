@@ -1,4 +1,3 @@
-import { env } from '../../environments/environment';
 import addContext from 'mochawesome/addContext';
 import Table from 'cli-table';
 

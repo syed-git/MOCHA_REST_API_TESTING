@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { getApi, postApi } from '../../src/helpers/rest_api_helpers';
+import { getApi } from '../../src/helpers/rest_api_helpers';
 import { step } from 'mocha-steps';
 import { tableReport } from '../../src/helpers/common_helper';
 

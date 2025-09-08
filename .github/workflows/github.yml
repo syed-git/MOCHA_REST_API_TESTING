@@ -32,7 +32,7 @@ jobs:
 
       # Step 4: Run tests
       - name: Run build tests
-        run: npx mocha --grep '@build'
+        run: npm run test:build
 
   smoke_tests:
     name: Smoke Tests
@@ -56,7 +56,7 @@ jobs:
 
       # Step 4: Run tests
       - name: Run build tests
-        run: npx mocha --grep '@smoke'
+        run: npm run test:smoke
 
   getRequests:
     name: GET Requests
