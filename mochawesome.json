@@ -1,0 +1,5 @@
+{
+  "reportDir": "reports",
+  "overwrite": false,
+  "timestamp": "yyyyMMdd-HHmmss"
+}

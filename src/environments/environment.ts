@@ -4,7 +4,7 @@ export const env: any = {
         baseUri: 'https://jsonplaceholder.typicode.com',
       },
       regres: {
-        baseUri: 'https://reqres.in/api',
+        baseUri: 'https://api.restful-api.dev',
       },
     },
     production: {

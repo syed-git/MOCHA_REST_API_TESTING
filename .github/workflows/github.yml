@@ -11,8 +11,8 @@ on:
 
 # Define the job
 jobs:
-  test:
-    name: Run Tests
+  eslint:
+    name: Code Quality Check
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
 
     steps:
@@ -31,5 +31,53 @@ jobs:
         run: npm install
 
       # Step 4: Run tests
-      - name: Run tests
-        run: npm test
+      - name: Code Quality check
+        run: npm run lint
+
+  build_tests:
+    name: Build
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    needs: eslint
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22 # Specify the Node.js version
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run tests
+      - name: Run build tests
+        run: npm run test:build
+
+  smoke_tests:
+    name: Smoke Tests
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    needs: build_tests
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22 # Specify the Node.js version
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run tests
+      - name: Run build tests
+        run: npm run test:smoke
