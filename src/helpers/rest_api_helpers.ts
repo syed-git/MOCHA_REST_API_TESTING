@@ -38,7 +38,7 @@ export const getApi = async (_this: Mocha.Context, application: string | number,
       throw error; // Throw the error to be handled by the calling function
   }
   
-}
+};
 
 
 /*
@@ -70,7 +70,7 @@ export const postApi = async (_this: Mocha.Context, application: string, uri: an
     } else {
       headers = {
         'content-type': 'application/json'
-      }
+      };
     }
     if (request.body !== undefined) {
       requestBody = request.body; 
@@ -98,7 +98,7 @@ export const postApi = async (_this: Mocha.Context, application: string, uri: an
   const responseBody = await response.json();
   apiReport(_this, startTime, responseTime, endpoint, request, responseBody);
   return responseBody;
-}
+};
 
 /*
 postApi: this function is designed to post a rest API request and get the response using POST method
@@ -129,7 +129,7 @@ export const putApi = async (_this: Mocha.Context, application: string, uri: any
     } else {
       headers = {
         'content-type': 'application/json'
-      }
+      };
     }
     if (request.body !== undefined) {
       requestBody = request.body; 
@@ -157,7 +157,7 @@ export const putApi = async (_this: Mocha.Context, application: string, uri: any
   const responseBody = await response.json();
   apiReport(_this, startTime, responseTime, endpoint, request, responseBody);
   return responseBody;
-}
+};
 
 
 /*
@@ -178,4 +178,4 @@ export const apiReport = async (_this: Mocha.Context, startTime: Moment, respons
            `Response: ${JSON.stringify(response, null, 2)} \n\n` +
            `Response Time: ${responseTime} milliseconds`
   });
-}
+};

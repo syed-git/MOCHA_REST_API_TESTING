@@ -6,7 +6,7 @@
     "test": "mocha -r ts-node/register \"tests/**/*.ts\" --timeout 10000 --reporter mochawesome",
     "test:smoke": "mocha -r ts-node/register \"tests/**/*.ts\" --timeout 10000 --grep @smoke --reporter mochawesome",
     "test:regression": "mocha -r ts-node/register \"tests/**/*.ts\" --timeout 10000 --grep @regression --reporter mochawesome",
-    "test:build": "mocha -r ts-node/register \"tests/**/*.ts\" --timeout 10000 --grep @build --reporter mochawesome --reporter-option reportDir=reports,reportFilename=$(node getReportName.js),overwrite=false",
+    "test:build": "mocha -r ts-node/register \"tests/**/*.ts\" --timeout 10000 --grep @build --reporter mochawesome",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix"
   },

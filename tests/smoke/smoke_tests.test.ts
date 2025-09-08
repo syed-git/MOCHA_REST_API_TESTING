@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { getApi, postApi } from '../../src/helpers/rest_api_helpers';
+import { getApi } from '../../src/helpers/rest_api_helpers';
 import { step } from 'mocha-steps';
-import { tableReport } from '../../src/helpers/common_helper';
+
 
 describe('Smoke tests', async function () {
 
@@ -9,6 +9,6 @@ describe('Smoke tests', async function () {
     
     const response = await getApi(this, 'regres', 'objects/23', 'sit1');
 
-    expect(response.status, `error`).to.be.equal(404);
+    expect(response.status, 'error').to.be.equal(404);
   });
 });

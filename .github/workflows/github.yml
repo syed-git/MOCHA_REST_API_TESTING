@@ -11,9 +11,33 @@ on:
 
 # Define the job
 jobs:
+  eslint:
+    name: Code Quality Check
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22 # Specify the Node.js version
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run tests
+      - name: Code Quality check
+        run: npm run lint
+
   build_tests:
     name: Build
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    needs: eslint
 
     steps:
       # Step 1: Check out the repository
@@ -57,51 +81,3 @@ jobs:
       # Step 4: Run tests
       - name: Run build tests
         run: npm run test:smoke
-
-  getRequests:
-    name: GET Requests
-    runs-on: ubuntu-latest # Use the latest Ubuntu runner
-    needs: smoke_tests
-
-    steps:
-      # Step 1: Check out the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # Step 2: Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 22 # Specify the Node.js version
-
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: npm install
-
-      # Step 4: Run tests
-      - name: Run GET Request tests
-        run: npx mocha --grep '@getRequests'
-
-  postRequests:
-    name: POST Requests
-    runs-on: ubuntu-latest # Use the latest Ubuntu runner
-    needs: getRequests
-
-    steps:
-      # Step 1: Check out the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # Step 2: Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 22 # Specify the Node.js version
-
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: npm install
-
-      # Step 4: Run tests
-      - name: Run POST Request tests
-        run: npx mocha --grep '@postRequests'

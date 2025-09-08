@@ -21,4 +21,4 @@ export const tableReport = async (_this: Mocha.Context, title: string, tableValu
       title: `${title}`,
       value: table.toString()
     });
-}
+};
